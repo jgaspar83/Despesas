@@ -14,7 +14,8 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::all();
+        return view('categoria.index', compact('categorias'));
     }
 
     /**
@@ -22,9 +23,11 @@ class CategoriaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //Abre um formulario para a criação de uma nova categoria
     public function create()
     {
-        //
+        return view('categoria.create');
     }
 
     /**
@@ -33,9 +36,17 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     //Salva os dados no Banco de Dados
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'descricao' => 'required|max:255',
+        ]);
+
+        $categoria = Categoria::create($validateData);
+
+        return redirect('/categoria')->with('success', 'Categoria Criada com Sucesso!');
     }
 
     /**
@@ -55,9 +66,11 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
-        //
+        //Retorna os dados da categoria
+        $categoria = Categoria::findOrFail($id);
+        return view('categoria.edit', compact('categoria'));
     }
 
     /**
@@ -67,9 +80,15 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'descricao' => 'required|max:255'
+        ]);
+
+        Categoria::whereId($id)->update($validateData);
+
+        return redirect('/categoria')->with('success', 'Categoria alterada com Sucesso!');
     }
 
     /**
@@ -78,8 +97,10 @@ class CategoriaController extends Controller
      * @param  \App\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+        return redirect('/categoria')->with('success', 'Categoria reovida com sucesso!');
     }
 }

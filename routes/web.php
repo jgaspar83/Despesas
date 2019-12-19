@@ -17,4 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('categoria', 'CategoriaController');
+Route::resource('despesa', 'DespesaController');
+
 Route::get('/home', 'HomeController@index')->name('home');
