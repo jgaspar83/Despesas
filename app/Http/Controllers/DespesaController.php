@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Despesa;
+use App\Categoria;
+
 use Illuminate\Http\Request;
 
 class DespesaController extends Controller
@@ -25,7 +27,8 @@ class DespesaController extends Controller
      */
     public function create()
     {
-        return view('despesa.create');
+        $categorias = Categoria::all();
+        return view('despesa.create', compact('categorias'));
     }
 
     /**
@@ -69,7 +72,8 @@ class DespesaController extends Controller
     {
         //Retorna os dados da categoria
         $despesa = Despesa::findOrFail($id);
-        return view('despesa.edit', compact('despesa'));
+        $categorias = Categoria::all();
+        return view('despesa.edit', compact('despesa', 'categorias'));
     }
 
     /**
@@ -79,7 +83,8 @@ class DespesaController extends Controller
      * @param  \App\Despesa  $despesa
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Despesa $despesa)
+
+    public function update(Request $request, $id)
     {
         $validateData = $request->validate([
             'descricao' => 'required|max:255',
@@ -103,6 +108,6 @@ class DespesaController extends Controller
     {
         $despesa = Despesa::findOrFail($id);
         $despesa->delete();
-        return redirect('/despesa')->with('success', 'Despesa reovida com sucesso!');
+        return redirect('/despesa')->with('success', 'Despesa removida com sucesso!');
     }
 }

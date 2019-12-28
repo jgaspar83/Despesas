@@ -6,8 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model
 {
+    //Campos editaveis
     protected $fillable = ['descricao'];
-    protected $guarded = ['id', 'create_at', 'update_at'];
+
+    //Campos Protegidos
+    protected $guarded = ['id', 'created_at', 'update_at'];
+    
     protected $table = 'categorias';
 
     //Categoria pertence a uma ou Mais despesas

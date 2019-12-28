@@ -6,9 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Despesa extends Model
 {
-    protected $fillable = ['descricao', 'data', 'valor'];
-    protected $guarded = ['id', 'create_at', 'update_at'];
-    protected $table = 'dategorias';
+    //Campos editaveis
+    protected $fillable = ['descricao', 'data', 'valor', 'categoria_id'];
+    
+    //Campos Protegidos
+    protected $guarded = ['id', 'created_at', 'update_at'];
+    
+    protected $table = 'despesas';
 
     //Despesa possui uma categoria associada a ela
     public function categorias() {
