@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('categoria', 'CategoriaController')->name('index','categoria');;
-Route::resource('despesa', 'DespesaController')->name('index','despesa');;
+Route::resource('categoria', 'CategoriaController')->name('index','categoria')->middleware('auth');
+Route::resource('despesa', 'DespesaController')->name('index','despesa')->middleware('auth');
 
 Route::get('/home', 'HomeController@index')->name('home');

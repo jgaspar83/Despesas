@@ -34,6 +34,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
 
+                    @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('categoria') }}">{{ __('Categoria') }}</a>
                     </li>
@@ -41,7 +42,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('despesa') }}">{{ __('Despesa') }}</a>
                     </li>
-
+                    @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
